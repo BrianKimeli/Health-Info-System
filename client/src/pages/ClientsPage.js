@@ -13,6 +13,7 @@ import {
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { getClients, createClient } from '../api';
+import { Collapse } from '@mui/material';
 
 // Clients Page Component
 export default function ClientsPage() {
@@ -29,6 +30,7 @@ export default function ClientsPage() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const [showForm, setShowForm] = useState(false);
 
   // Fetch clients when component mounts
   useEffect(() => {
@@ -103,6 +105,15 @@ export default function ClientsPage() {
           sx={{ mb: 2 }}
         />
 
+        <Button 
+          variant="contained" 
+          onClick={() => setShowForm(prev => !prev)}
+          sx={{ mb: 2 }}
+        >
+          {showForm ? 'Hide Registration Form' : 'Register New Client'}
+        </Button>
+
+        <Collapse in={showForm}>
         <Box 
           component="form" 
           onSubmit={handleSubmit} 
@@ -169,6 +180,7 @@ export default function ClientsPage() {
             {submitting ? 'Registering...' : 'Register Client'}
           </Button>
         </Box>
+        </Collapse>
 
         {/* Clients List */}
         {loadingClients ? (
@@ -176,25 +188,40 @@ export default function ClientsPage() {
             <CircularProgress />
           </Box>
         ) : (
-          <List>
-            {filteredClients.map((client) => (
-              <ListItem 
-                key={client._id} 
-                component={Link} 
-                to={`/clients/${client._id}`}
-                sx={{ 
-                  textDecoration: 'none', 
-                  color: 'inherit', 
-                  '&:hover': { bgcolor: '#f5f5f5' } 
-                }}
-              >
-                <ListItemText 
-                  primary={`${client.firstName} ${client.lastName}`} 
-                  secondary={`DOB: ${client.dateOfBirth ? new Date(client.dateOfBirth).toLocaleDateString() : 'N/A'}`} 
-                />
-              </ListItem>
-            ))}
-          </List>
+          filteredClients.length > 0 ? (
+            <List>
+              {filteredClients.map((client) => (
+                <ListItem 
+                  key={client._id} 
+                  component={Link} 
+                  to={`/clients/${client._id}`}
+                  sx={{ 
+                    textDecoration: 'none', 
+                    color: 'inherit', 
+                    mb: 1,
+                    border: '1px solid #ddd',
+                    borderRadius: 1,
+                    padding: 2,
+                    transition: '0.3s',
+                    '&:hover': { 
+                      backgroundColor: '#f5f5f5', 
+                      transform: 'scale(1.02)', 
+                      boxShadow: '0px 2px 8px rgba(0,0,0,0.1)' 
+                    } 
+                  }}
+                >
+                  <ListItemText 
+                    primary={`${client.firstName} ${client.lastName}`} 
+                    secondary={`DOB: ${client.dateOfBirth ? new Date(client.dateOfBirth).toLocaleDateString() : 'N/A'}`} 
+                  />
+                </ListItem>
+              ))}
+            </List>
+          ) : (
+            <Typography variant="body1" sx={{ mt: 2, textAlign: 'center' }}>
+              No clients found.
+            </Typography>
+          )
         )}
       </Box>
     </Container>
