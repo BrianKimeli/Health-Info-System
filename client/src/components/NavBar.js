@@ -2,6 +2,7 @@ import { AppBar, Toolbar, Typography, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import ProgramsPage from '../pages/ProgramsPage';
 
+// NavBar Component to render the navigation bar
 const NavBar = () => {
   return (
     <AppBar position="static">
