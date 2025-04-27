@@ -50,7 +50,7 @@
 - cd server
 - npm install
 - create a .env file with:
-- MONGO_URI=mongodb://localhost:27017/health_info_system
+ MONGO_URI=mongodb://localhost:27017/health_info_system
 - npm run dev
 
 ### 2. Start the Frontend
