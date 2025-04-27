@@ -33,7 +33,7 @@ export default function LoginPage() {
         throw new Error('Please fill in all fields');
       }
   
-      const response = await fetch('http://localhost:5000/api/auth/login', {
+      const response = await fetch('https://health-info-system-fv7s.onrender.com/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
