@@ -1,27 +1,28 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-const auth = require('../middleware/auth');
-
-// Hardcoded valid credentials
-const VALID_USER = {
-  username: 'doctor',
-  password: 'test123', // Only for comparison - not used in production
-  role: 'doctor'
-};
+const bcrypt = require('bcryptjs');
+const User = require('../models/User');
 
 router.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body;
     
-    // Simple credential check
-    if (username !== VALID_USER.username || password !== VALID_USER.password) {
-      return res.status(400).json({ error: 'Invalid credentials.\nPlease try username: "doctor" and password: "test123".' });
+    // Find user in database
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(400).json({ error: 'Invalid credentials' });
     }
 
-    // Create real JWT token
+    // Compare hashed password
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ error: 'Invalid credentials' });
+    }
+
+    // Generate JWT
     const token = jwt.sign(
-      { username: VALID_USER.username, role: VALID_USER.role },
+      { userId: user._id },
       process.env.JWT_SECRET,
       { expiresIn: '1h' }
     );
@@ -29,18 +30,16 @@ router.post('/login', async (req, res) => {
     res.json({
       token,
       user: {
-        username: VALID_USER.username,
-        role: VALID_USER.role
+        id: user._id,
+        username: user.username,
+        role: user.role
       }
     });
     
   } catch (error) {
+    console.error('Login error:', error);
     res.status(500).json({ error: 'Server error' });
   }
-});
-
-router.get('/verify', auth, async (req, res) => {
-  res.json(req.user);
 });
 
 module.exports = router;

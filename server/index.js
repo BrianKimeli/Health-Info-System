@@ -19,24 +19,6 @@ mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('MongoDB connection error:', err));
 
-  const createTestUser = async () => {
-    try {
-      const exists = await User.findOne({ username: 'doctor' });
-      if (!exists) {
-        // Create through Mongoose model
-        const user = new User({
-          username: 'doctor',
-          password: 'test123', // Will be hashed automatically
-          role: 'doctor'
-        });
-        
-        await user.save(); // This triggers the pre-save hook
-        console.log('Test user created with hashed password:', user.password);
-      }
-    } catch (err) {
-      console.error('Test user creation failed:', err);
-    }
-  };
   
   const connectDB = async () => {
     try {
