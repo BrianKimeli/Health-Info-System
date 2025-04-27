@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://health-info-system-fv7s.onrender.com/api',
-  timeout: 10000,
+  baseURL: process.env.REACT_APP_API_URL || 'https://health-info-system-fv7s.onrender.com/api',
+  timeout: 15000,
 });
 
 // Request interceptor

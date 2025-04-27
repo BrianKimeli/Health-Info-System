@@ -7,11 +7,28 @@ const User = require('./models/User');
 
 const app = express();
 
-// Middleware
-app.use(cors({
-  origin: 'http://localhost:3000', // Frontend URL
+if (process.env.NODE_ENV === 'production') {
+  app.use((req, res, next) => {
+    if (req.headers['x-forwarded-proto'] !== 'https') {
+      return res.redirect(301, `https://${req.headers.host}${req.url}`);
+    }
+    next();
+  });
+}
+
+const corsOptions = {
+  origin: [
+    'https://health-info-system-jade.vercel.app', // Vercel domain
+    'http://localhost:3000' // For local development
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
-}));
+};
+
+
+// Middleware
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Database connection
@@ -19,7 +36,6 @@ mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('MongoDB connection error:', err));
 
-  
   const connectDB = async () => {
     try {
       await mongoose.connect(process.env.MONGODB_URI, {
