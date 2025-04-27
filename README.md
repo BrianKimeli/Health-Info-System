@@ -47,15 +47,15 @@
 
 ### 1. Start the Backend
 
-cd server
- npm install
+- cd server
+- npm install
 - create a .env file with:
 - MONGO_URI=mongodb://localhost:27017/health_info_system
 - npm run dev
 
 ### 2. Start the Frontend
-cd ../client
-npm install
+- cd ../client
+- npm install
 create a .env file with:
   REACT_APP_BACKEND_URL=http://localhost:5000
 - npm start
