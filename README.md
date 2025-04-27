@@ -36,7 +36,7 @@
 | **Program Dashboard** | ![Programs](/client/public/images/programs.png) |
 | **Clients Profile** | ![Programs](/client/public/images/clientsProfile.png) |
 
-## Run Locally if vercel url is not comunicating with backend
+## Run Locally if vercel url is not communicating with backend
 
 ### Prerequisites
 - Node.js (v14+)
@@ -53,3 +53,13 @@ npm install
 # create a .env file with:
 #   MONGO_URI=mongodb://localhost:27017/health_info_system
 npm run dev
+
+2. Start the Frontend
+bash
+Copy code
+cd ../client
+npm install
+# create a .env file with:
+#   REACT_APP_BACKEND_URL=http://localhost:5000
+npm start
+Your React app will be available at http://localhost:3000.
