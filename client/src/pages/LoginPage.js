@@ -11,6 +11,7 @@ import {
   CardContent
 } from '@mui/material';
 import { useAuth } from '../context/AuthContext';
+import { login } from '../api';
 
 export default function LoginPage() {
   const [credentials, setCredentials] = useState({
@@ -19,7 +20,7 @@ export default function LoginPage() {
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
+  const { setAuthState } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -28,42 +29,21 @@ export default function LoginPage() {
     setLoading(true);
   
     try {
-      // Basic client-side validation
+      // Validate inputs
       if (!credentials.username.trim() || !credentials.password.trim()) {
         throw new Error('Please fill in all fields');
       }
-  
-      const response = await fetch('https://health-info-system-fv7s.onrender.com/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(credentials)
-      });
-  
-      const data = await response.json();
+
+      // Use API module for login
+      const { token, user } = await login(credentials);
       
-      if (!response.ok) {
-        console.error('Backend error response:', data);
-        throw new Error(data.error || 'Invalid credentials. Please try again.');
-      }
-  
-      // Store token and user data
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('user', JSON.stringify(data.user));
+      // Update auth context and storage
+      setAuthState({ user, token });
+      localStorage.setItem('token', token);
       
-      // Update auth context
-      login(data.user);
       navigate('/clients');
-      
     } catch (error) {
-      console.error('Login error:', error);
-      setError(error.message);
-      
-      // Handle network errors
-      if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
-        setError('Network error - check backend connection');
-      }
+      setError(error.response?.data?.error || error.message);
     } finally {
       setLoading(false);
     }

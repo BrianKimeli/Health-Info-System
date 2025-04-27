@@ -18,7 +18,7 @@ export default function NavBar() {
             <Button color="inherit" onClick={logout}>Logout</Button>
           </>
         ) : (
-          <Button color="inherit" component={Link} to="/login">Login</Button>
+          <Button color="inherit" component={Link} to="/login"></Button>
         )}
       </Toolbar>
     </AppBar>

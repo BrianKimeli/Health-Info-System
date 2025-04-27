@@ -1,13 +1,11 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://health-info-system-fv7s.onrender.com/api', // Updated baseURL
-  headers: {
-    'Content-Type': 'application/json'
-  }
+  baseURL: 'https://health-info-system-fv7s.onrender.com/api',
+  timeout: 10000,
 });
 
-// Add request interceptor to include token
+// Request interceptor
 api.interceptors.request.use(config => {
   const token = localStorage.getItem('token');
   if (token) {
@@ -16,36 +14,25 @@ api.interceptors.request.use(config => {
   return config;
 });
 
+// Response interceptor
+api.interceptors.response.use(
+  response => response,
+  error => {
+    if (error.response?.status === 401) {
+      localStorage.removeItem('token');
+      window.location = '/login';
+    }
+    return Promise.reject(error);
+  }
+);
+
 // Auth endpoints
 export const login = async (credentials) => {
-  try {
-    console.log('Sending login request:', {
-      username: credentials.username,
-      password: '***' // Don't log actual password
-    });
-    
-    const response = await api.post('/auth/login', {
-      username: 'doctor',    // Hardcoded for testing
-      password: 'test123'    // Hardcoded for testing
-    });
-    
-    console.log('Login response:', {
-      status: response.status,
-      data: response.data
-    });
-    return response.data;
-  } catch (error) {
-    console.error('Full login error:', {
-      status: error.response?.status,
-      data: error.response?.data,
-      config: error.config,
-      message: error.message
-    });
-    throw error;
-  }
+  const response = await api.post('/auth/login', credentials);
+  return response.data;
 };
 
-export const getCurrentUser = () => api.get('/auth/me');
+export const getCurrentUser = () => api.get('https://health-info-system-fv7s.onrender.com/api/auth/me'); // Updated endpoint
 
 // Client endpoints
 export const getClients = (query) => api.get(`/clients?q=${query}`);
