@@ -47,7 +47,6 @@
 
 ### 1. Start the Backend
 
-```bash
 cd server
 npm install
 # create a .env file with:
