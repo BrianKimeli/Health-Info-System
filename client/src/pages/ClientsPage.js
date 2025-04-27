@@ -32,6 +32,7 @@ export default function ClientsPage() {
   const [success, setSuccess] = useState(null);
   const [showForm, setShowForm] = useState(false);
 
+  
   // Fetch clients when component mounts
   useEffect(() => {
     const fetchClients = async () => {
