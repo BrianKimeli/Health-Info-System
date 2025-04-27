@@ -35,3 +35,21 @@
 | **Client Registration** | ![Registration](/client/public/images/clients.png) |
 | **Program Dashboard** | ![Programs](/client/public/images/programs.png) |
 | **Clients Profile** | ![Programs](/client/public/images/clientsProfile.png) |
+
+## Run Locally if vercel url is not comunicating with backend
+
+### Prerequisites
+- Node.js (v14+)
+- npm or yarn
+- MongoDB running locally (e.g. via `mongod` or Compass)
+
+---
+
+### 1. Start the Backend
+
+```bash
+cd server
+npm install
+# create a .env file with:
+#   MONGO_URI=mongodb://localhost:27017/health_info_system
+npm run dev
