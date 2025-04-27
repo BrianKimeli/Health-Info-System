@@ -54,9 +54,7 @@ npm install
 #   MONGO_URI=mongodb://localhost:27017/health_info_system
 npm run dev
 
-2. Start the Frontend
-bash
-Copy code
+### 2. Start the Frontend
 cd ../client
 npm install
 # create a .env file with:
