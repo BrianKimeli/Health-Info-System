@@ -49,14 +49,14 @@
 
 cd server
 npm install
-# create a .env file with:
-#   MONGO_URI=mongodb://localhost:27017/health_info_system
+ create a .env file with:
+   MONGO_URI=mongodb://localhost:27017/health_info_system
 npm run dev
 
 # 2. Start the Frontend
 cd ../client
 npm install
-# create a .env file with:
-#   REACT_APP_BACKEND_URL=http://localhost:5000
+create a .env file with:
+  REACT_APP_BACKEND_URL=http://localhost:5000
 npm start
 Your React app will be available at http://localhost:3000.
