@@ -58,5 +58,5 @@ cd ../client
 npm install
 create a .env file with:
   REACT_APP_BACKEND_URL=http://localhost:5000
-npm start
-Your React app will be available at http://localhost:3000.
+- npm start
+- Your React app will be available at http://localhost:3000.
