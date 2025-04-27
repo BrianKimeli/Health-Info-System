@@ -3,10 +3,7 @@
 *A basic health information management system for client and program administration*
 
 ## ▶️ System Demo Video
-[Watch Demo]
-(/client/public/Demo.mp4) |
-
-
+[Watch Demo](./client/public/Demo.mp4)
 ## 📌 Core Functionalities
 
 ### 1. Program Management
@@ -37,23 +34,4 @@
 | **Login** | ![Login Screen](/client/public/images/login.png) |
 | **Client Registration** | ![Registration](/client/public/images/clients.png) |
 | **Program Dashboard** | ![Programs](/client/public/images/programs.png) |
-| **Patients Profile** | ![Programs](/client/public/images/clientsProfile.png) |
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Node.js (v16+)
-- MongoDB
-- Modern web browser
-
-### Installation
-```bash
-# Clone repository
-git clone https://github.com/yourusername/health-info-system.git
-
-# Install dependencies
-cd health-info-system
-npm install
-
-# Configure environment
-cp .env.example .env
+| **Clients Profile** | ![Programs](/client/public/images/clientsProfile.png) |
