@@ -4,6 +4,7 @@
 
 ## ▶️ System Demo Video
 [Watch Demo]
+(/client/public/Demo.mp4) |
 
 
 ## 📌 Core Functionalities
@@ -36,6 +37,7 @@
 | **Login** | ![Login Screen](/client/public/images/login.png) |
 | **Client Registration** | ![Registration](/client/public/images/clients.png) |
 | **Program Dashboard** | ![Programs](/client/public/images/programs.png) |
+| **Patients Profile** | ![Programs](/client/public/images/clientsProfile.png) |
 
 ## 🚀 Getting Started
 
@@ -47,10 +49,10 @@
 ### Installation
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/health-system.git
+git clone https://github.com/yourusername/health-info-system.git
 
 # Install dependencies
-cd health-system
+cd health-info-system
 npm install
 
 # Configure environment
